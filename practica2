@@ -1,0 +1,51 @@
+// *Practica #2
+using System;
+
+class practica2
+{
+    static void Main(string[] args)
+    {
+        double sueldoMensual, sueldoAnual, isrAnual = 0, isrMensual;
+
+        Console.Write("Ingrese el sueldo mensual del empleado (RD$): ");
+        sueldoMensual = Convert.ToDouble(Console.ReadLine());
+
+        // Convertir el sueldo mensual a anual
+        sueldoAnual = sueldoMensual * 12;
+
+        // Calcular el ISR anual según la escala de la DGII
+        if (sueldoAnual <= 416220)
+        {
+            isrAnual = 0;
+        }
+        else if (sueldoAnual <= 624329)
+        {
+            isrAnual = (sueldoAnual - 416220) * 0.15;
+        }
+        else if (sueldoAnual <= 867123)
+        {
+            isrAnual = 31216 + (sueldoAnual - 624329) * 0.20;
+        }
+        else
+        {
+            isrAnual = 79776 + (sueldoAnual - 867123) * 0.25;
+        }
+
+        // ISR mensual
+        isrMensual = isrAnual / 12;
+
+        Console.WriteLine("\n===== RESULTADO =====");
+        Console.WriteLine("Sueldo mensual: RD$" + sueldoMensual.ToString("N2"));
+
+        if (isrAnual == 0)
+        {
+            Console.WriteLine("No aplica para descuento de ISR.");
+        }
+        else
+        {
+            Console.WriteLine("ISR mensual a pagar: RD$" + isrMensual.ToString("N2"));
+        }
+
+        Console.ReadKey();
+    }
+}
