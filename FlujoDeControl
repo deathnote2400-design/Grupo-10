@@ -1,0 +1,47 @@
+// *Practica #1
+using System;
+
+class FlujoDeControl
+{
+    static void Main()
+    {
+        Console.Write("Ingrese el capital del préstamo: ");
+        if (!double.TryParse(Console.ReadLine(), out double capital) || capital <= 0)
+        {
+            Console.WriteLine("Entrada inválida para el capital.");
+            return;
+        }
+
+        Console.Write("Ingrese la tasa de interés anual (%): ");
+        if (!double.TryParse(Console.ReadLine(), out double tasaAnual) || tasaAnual < 0)
+        {
+            Console.WriteLine("Entrada inválida para la tasa de interés.");
+            return;
+        }
+
+        Console.Write("Ingrese el tiempo en meses: ");
+        if (!int.TryParse(Console.ReadLine(), out int meses) || meses <= 0)
+        {
+            Console.WriteLine("Entrada inválida para el tiempo en meses.");
+            return;
+        }
+
+        double tasaMensual = tasaAnual / 100.0 / 12.0;
+        double cuota;
+
+        if (tasaMensual == 0)
+        {
+            cuota = capital / meses;
+        }
+        else
+        {
+            double factor = Math.Pow(1 + tasaMensual, meses);
+            cuota = capital * tasaMensual * factor / (factor - 1);
+        }
+        Console.WriteLine($"El capital es : {capital}");
+        Console.WriteLine($"El interes es del: {tasaAnual}%");
+        Console.WriteLine($"Con :{meses} meses para pagar");
+
+        Console.WriteLine($"\nLa cuota mensual del préstamo es: {cuota:F2}");
+    }
+}
